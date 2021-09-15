@@ -28,19 +28,24 @@ public class ClimbingTrackerTester {
      */
     public static boolean testSendClimb() {
 
+        String[] testArray0 = new String[10];
         String[] testArray1 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
         String[] testArray2 = new String[] { "V0", "V1", "V0", "V2", "V4", "V2", "V3" };
         String[] testArray3 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
 
-        int i1 = 4, i2 = 7, i3 = 4, i0;
-
-        i0 = ClimbingTracker.sendClimb(new String[5], 0, "V1");
-        i1 = ClimbingTracker.sendClimb(testArray1, i1, "V5");
-        i2 = ClimbingTracker.sendClimb(testArray2, i2, "V5");
-        i3 = ClimbingTracker.sendClimb(testArray3, i3, "V9");
-
-        if (i0 != 1 || i1 != 5 || i2 != 7 || i3 != 4)
+        if (1 != ClimbingTracker.sendClimb(testArray0, 0, "V1") || !testArray0[0].equals("V1")) {
             return false;
+        }
+        if (5 != ClimbingTracker.sendClimb(testArray1, 4, "V5") || !testArray1[4].equals("V5")) {
+            return false;
+        }
+        if (7 != ClimbingTracker.sendClimb(testArray2, 7, "V1") || !testArray2[6].equals("V3")) {
+            return false;
+        }
+        if (4 != ClimbingTracker.sendClimb(testArray3, 4, "V9") || !testArray3[3].equals("V2")
+                || testArray3[4] != null) {
+            return false;
+        }
 
         return true;
     }
@@ -49,17 +54,22 @@ public class ClimbingTrackerTester {
      * tests failClimb method
      */
     public static boolean testFailClimb() {
+        String[] testArray0 = new String[10];
         String[] testArray1 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
         String[] testArray2 = new String[] { "V0", "V1", "V0", "V2", "V4", "V2", "V3" };
         String[] testArray3 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
 
-        int i1 = 4, i2 = 7, i3 = 4;
-
-        i1 = ClimbingTracker.failClimb(testArray1, i1, "V5");
-        i2 = ClimbingTracker.failClimb(testArray2, i2, "V5");
-        i3 = ClimbingTracker.failClimb(testArray3, i3, "V9");
-
-        if (i1 != 5 || i2 != 7 || i3 != 4) {
+        if (1 != ClimbingTracker.failClimb(testArray0, 0, "V1") || !testArray0[0].equals("V1")) {
+            return false;
+        }
+        if (5 != ClimbingTracker.failClimb(testArray1, 4, "V5") || !testArray1[4].equals("V5")) {
+            return false;
+        }
+        if (7 != ClimbingTracker.failClimb(testArray2, 7, "V1") || !testArray2[6].equals("V3")) {
+            return false;
+        }
+        if (4 != ClimbingTracker.failClimb(testArray3, 4, "V9") || !testArray3[3].equals("V2")
+                || testArray3[4] != null) {
             return false;
         }
 
