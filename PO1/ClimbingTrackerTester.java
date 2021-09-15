@@ -19,11 +19,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * This class contains static methods for an abstraction of a rock climbing
- * tracker
+ * This class tests the static methods of ClimbingTracker
  */
 public class ClimbingTrackerTester {
 
+    /**
+     * tests send climb method
+     */
     public static boolean testSendClimb() {
 
         String[] testArray1 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
@@ -43,6 +45,9 @@ public class ClimbingTrackerTester {
         return true;
     }
 
+    /**
+     * tests failClimb method
+     */
     public static boolean testFailClimb() {
         String[] testArray1 = new String[] { "V0", "V1", "V0", "V2", null, null, null };
         String[] testArray2 = new String[] { "V0", "V1", "V0", "V2", "V4", "V2", "V3" };
@@ -61,6 +66,9 @@ public class ClimbingTrackerTester {
         return true;
     }
 
+    /**
+     * tests getStats method
+     */
     public static boolean testGetStats() {
 
         String[] send = { "V0", "V1", "V0", "V0", null };
@@ -104,6 +112,9 @@ public class ClimbingTrackerTester {
         return true;
     }
 
+    /**
+     * tests getHistogram method
+     */
     public static boolean testGetHistogram() {
 
         String histogram, expectedResult;
@@ -143,6 +154,9 @@ public class ClimbingTrackerTester {
 
     }
 
+    /**
+     * runs all tests
+     */
     public static boolean runAllTests() {
 
         boolean sendTest = testSendClimb();

@@ -24,6 +24,11 @@
  */
 public class ClimbingTracker {
 
+    /**
+     * @param grade string to be verified
+     * @return returns true if string is valid grade between 0 and 7 and false if
+     *         not
+     */
     private static boolean verifyGrade(String grade) {
         if (grade.length() != 2 || grade.charAt(0) != 'V' || !Character.isDigit(grade.charAt(1))) {
             return false;
@@ -32,6 +37,13 @@ public class ClimbingTracker {
         return Integer.parseInt(grade.substring(1)) <= 7;
     }
 
+    /**
+     * 
+     * @param <T>   generic reference the array type
+     * @param array oversized array to be checked
+     * @param index number of valid units in array
+     * @return returns true if array is valid and false if not
+     */
     private static <T> boolean verifyOversizedArray(T[] array, int index) {
         if (index < 0 || index > array.length) {
             return false;
@@ -45,10 +57,22 @@ public class ClimbingTracker {
         return true;
     }
 
+    /**
+     * @param grade the string to be converted
+     * @return an int from 0-7 of the grade of climb
+     */
     private static int getGradeFromString(String grade) {
         return Integer.parseInt(grade.substring(1));
     }
 
+    /**
+     * Adds a successful climb to an oversized array
+     * 
+     * @param climbs    an oversized array of climbs
+     * @param numClimbs the number of climbs in the array
+     * @param grade     the grade of the climb
+     * @return the updated length of send
+     */
     private static int addClimb(String[] climbs, int numClimbs, String grade) {
 
         if (!verifyOversizedArray(climbs, numClimbs)) {
@@ -68,6 +92,7 @@ public class ClimbingTracker {
      * 
      * @param send    an oversized array of successful climbs
      * @param numSend the number of climbs in send
+     * @param grade   the grade of the climb
      * @return the updated length of send
      */
     public static int sendClimb(String[] send, int numSend, String grade) {
@@ -79,6 +104,7 @@ public class ClimbingTracker {
      * 
      * @param fail    an oversized array of failed climbs
      * @param numFail the number of climbs in fail
+     * @param grade   the grade of the climb
      * @return the updated length of fail
      */
     public static int failClimb(String[] fail, int numFail, String grade) {
