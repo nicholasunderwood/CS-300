@@ -1,3 +1,23 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Class contains static methods which create an PApplet gui of a fish tank 
+// Course:   CS 300 Fall 2020
+//
+// Author:   Nicholas Underwood
+// Email:    ndunderwood@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// N/A
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons:         N/A
+// Online Sources:  N/A
+//
+///////////////////////////////////////////////////////////////////////////////
+
 import java.util.Random;
 import java.io.File;
 import java.rmi.ConnectIOException;
@@ -58,7 +78,7 @@ public class FishTank {
         // create a random obj
         randGen = new Random();
 
-        // initiate first fish
+        // instansiate fishes array
         fishes = new Fish[8];
     }
 
@@ -84,6 +104,7 @@ public class FishTank {
      * Callback method called each time the user presses the mouse
      */
     public static void mousePressed() {
+
         for (int i = 0; i < fishes.length; i++) {
             if (fishes[i] == null)
                 continue;
