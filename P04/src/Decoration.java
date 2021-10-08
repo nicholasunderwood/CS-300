@@ -14,9 +14,10 @@ public class Decoration {
 
     /**
      * constructs a new decoration
-     * @param processing static reference to canvas
-     * @param x x position of the decoration
-     * @param y y position of the decoration
+     * 
+     * @param processing              static reference to canvas
+     * @param x                       x position of the decoration
+     * @param y                       y position of the decoration
      * @param decorationImageFileName full file location of png image
      */
     public Decoration(PApplet processing, float x, float y, String decorationImageFileName) {
@@ -27,7 +28,6 @@ public class Decoration {
 
     }
 
-    
     /**
      * getter for image parameter
      * 
@@ -84,7 +84,7 @@ public class Decoration {
         Decoration.oldMouseY = processing.mouseY;
         this.isDragging = true;
     }
-    
+
     /**
      * Stops draggging this decoration
      */
@@ -112,8 +112,9 @@ public class Decoration {
     }
 
     /**
-     * Draws this decoration to the display window. This method sets also the position of
-     * this decoration to follow the moves of the mouse if it is being dragged
+     * Draws this decoration to the display window. This method sets also the
+     * position of this decoration to follow the moves of the mouse if it is being
+     * dragged
      */
     public void draw() {
 

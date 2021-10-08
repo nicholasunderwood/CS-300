@@ -42,6 +42,8 @@ public class FishTank {
     // array storing the decoration objects present in the tank
     private static Decoration[] decorations;
 
+    private static int fishSpeed = 5;
+
     /**
      * Defines initial environment properties such as screen size and to load
      * background images and fonts as the program starts. It also initializes all
@@ -73,6 +75,8 @@ public class FishTank {
 
         // traverse the fishes array and draw each of the fish present in the tank
         for (int i = 0; i < decorations.length; i++) {
+            if (decorations[i] == null)
+                continue;
             decorations[i].draw();
         }
 
@@ -96,9 +100,10 @@ public class FishTank {
             }
         }
 
-        // traverse the decoratons array and start dragging a decoration if the mouse is over it
+        // traverse the decoratons array and start dragging a decoration if the mouse is
+        // over it
         for (int i = 0; i < decorations.length; i++) {
-            if (decorations[i].isMouseOver()) {
+            if (decorations[i] != null && decorations[i].isMouseOver()) {
                 decorations[i].startDragging();
                 return;
             }
@@ -111,11 +116,12 @@ public class FishTank {
     public static void mouseReleased() {
         // traverse the fishes array and stop dragging any fish
         for (int i = 0; i < fishes.length; i++) {
-            if (fishes[i] != null)
-                fishes[i].stopDragging();
+            if (fishes[i] == null) continue;
+            fishes[i].stopDragging();
         }
 
         for (int i = 0; i < decorations.length; i++) {
+            if(decorations[i] == null) continue;
             decorations[i].stopDragging();
         }
     }
@@ -132,7 +138,7 @@ public class FishTank {
                     continue;
 
                 fishes[i] = new Fish(processing, (float) randGen.nextInt(processing.width),
-                        (float) randGen.nextInt(processing.height), 5,
+                        (float) randGen.nextInt(processing.height), FishTank.fishSpeed,
                         "images" + File.separator + images[nextImageIndex]);
                 nextImageIndex = (nextImageIndex + 1) % images.length;
                 break;

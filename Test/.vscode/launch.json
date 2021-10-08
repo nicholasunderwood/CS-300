@@ -6,24 +6,25 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch HelloWorld",
+            "name": "Launch CallPerson",
             "request": "launch",
-            "mainClass": "src.HelloWorld",
+            "mainClass": "CallPerson",
             "projectName": "Test_1b33523d"
+        },
+        {
+            "type": "java",
+            "name": "Launch Playground",
+            "request": "launch",
+            "mainClass": "Playground",
+            "projectName": "Test_1b33523d",
+            "console": "internalConsole"
         },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "console": "integratedTerminal"
-        },
-        {
-            "type": "java",
-            "name": "Launch HelloWorld",
-            "request": "launch",
-            "mainClass": "HelloWorld",
-            "projectName": "Test_93b9af30"
+            "console": "internalConsole"
         }
     ]
 }

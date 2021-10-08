@@ -1,6 +1,7 @@
+import java.io.File;
+
 import processing.core.PApplet;
 import processing.core.PImage;
-
 
 /**
  * Represents a Fish to be used in Main class FishTank
@@ -14,13 +15,22 @@ public class Fish {
     private int speed;
     private boolean isDragging, isSwimming;
 
+    /**
+     * constructs a new fish with default arguments
+     * 
+     * @param processing static reference to PApplet canvas
+     */
+    public Fish(PApplet processing){
+        this(processing, processing.width/2, processing.height/2, 5, "images" + File.separator + "orange.png");
+    }
 
     /**
      * constructs a new fish
-     * @param processing static reference to canvas
-     * @param x x position of the fish
-     * @param y y position of the fish
-     * @param speed speed of the fish
+     * 
+     * @param processing        static reference to PApplet canvas
+     * @param x                 x position of the fish
+     * @param y                 y position of the fish
+     * @param speed             speed of the fish
      * @param fishImageFileName full file location of png image
      */
     public Fish(PApplet processing, float x, float y, int speed, String fishImageFileName) {
@@ -29,7 +39,6 @@ public class Fish {
         this.y = y;
         this.speed = speed;
         this.image = processing.loadImage(fishImageFileName);
-
     }
 
     /**
@@ -55,12 +64,16 @@ public class Fish {
 
     /**
      * moves the fish
+     * 
      * @param dx delta x
      * @param dy delta y
      */
     public void move(int dx, int dy) {
         this.x += dx;
+        this.x = Math.max(Math.min(Fish.processing.width, this.x), 0);
+        
         this.y += dy;
+        this.y = Math.max(Math.min(Fish.processing.height, this.y), 0);
     }
 
     /**
