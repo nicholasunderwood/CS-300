@@ -1,181 +1,112 @@
-//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
-//
-// Title:    Class contains static methods which create an PApplet gui of a fish tank 
-// Course:   CS 300 Fall 2020
-//
-// Author:   Nicholas Underwood
-// Email:    ndunderwood@wisc.edu
-// Lecturer: Mouna Kacem
-//
-//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
-//
-// N/A
-//
-///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
-//
-// Persons:         N/A
-// Online Sources:  N/A
-//
-///////////////////////////////////////////////////////////////////////////////
-
-import java.io.File;
 import java.util.Random;
-
+import java.util.ArrayList;
+import java.io.File;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-/**
- * Runs PApllet gui of a Fish Tank
- */
-public class FishTank {
-    private static PApplet processing; // PApplet object which represents the graphic interface
-                                       // of the Fish Tank application
-    private static PImage backgroundImage; // PImage object which represents the background image
-    private static Fish[] fishes; // array storing the current fishes present in the tank
-    private static Random randGen; // Generator of random numbers
+interface TaskListener {
+  // draws this tank object to the display window
+  public void draw();
 
-    // circular indexed array of fish images names
-    private static String[] images = new String[] { "orange.png", "blue.png", "yellow.png", "black.png" };
-    // index of next fish image index in the circular array images
-    private static int nextImageIndex;
+  // called each time the mouse is Pressed
+  public void mousePressed();
 
-    // array storing the decoration objects present in the tank
-    private static Decoration[] decorations;
+  // called each time the mouse is Released
+  public void mouseReleased();
 
-    private static int fishSpeed = 5;
+  // checks whether the mouse is over this Tank GUI
+  // return true if the mouse is over this tank GUI object, false otherwise
+  public boolean isMouseOver();
+}
 
-    /**
-     * Defines initial environment properties such as screen size and to load
-     * background images and fonts as the program starts. It also initializes all
-     * data fields.
-     * 
-     * @param processingObj a PApplet object that represents the display window of
-     *                      the Fish Tank application
-     */
-    public static void setup(PApplet processingObj) {
-        processing = processingObj;
-        backgroundImage = processing.loadImage("images" + File.separator + "background.png");
-        fishes = new Fish[8];
-        randGen = new Random();
+public class FishTank extends PApplet {
 
-        // add decorations
-        decorations = new Decoration[4];
-        decorations[0] = new Decoration(processing, 430, 60, "images" + File.separator + "flower.png");
-        decorations[1] = new Decoration(processing, 580, 470, "images" + File.separator + "log.png");
-        decorations[2] = new Decoration(processing, 65, 520, "images" + File.separator + "shell.png");
-        decorations[3] = new Decoration(processing, 280, 535, "images" + File.separator + "ship.png");
+  private PImage backgroundImage; // PImage object which represents the background image
+  protected ArrayList<TaskListener> objects; // list storing interactive objects
+  protected Random randGen; // Generator of random numbers
+
+  public static void main(String[] args) {
+    PApplet.main("FishTank");
+  }
+
+  // sets the size of this PApplet to 800 width x 600 height
+  @Override
+  public void settings() {
+    size(800, 600);
+  }
+
+  // Defines initial environment properties such as screen size and
+  // loads the background image and fonts as the program starts.
+  // It also initializes all data fields.
+  // The above IS NOT a javadoc style method header!
+  @Override
+  public void setup() {
+    // Set and display the title of the display window
+    this.getSurface().setTitle("Fish Tank 3000");
+    // Set the location from which images are drawn to CENTER
+    this.imageMode(PApplet.CENTER);
+    // Set the location from which rectangles are drawn.
+    this.rectMode(PApplet.CORNERS);
+    // rectMode(CORNERS) interprets the first two parameters of rect() method
+    // as the location of one corner, and the third and fourth parameters as
+    // the location of the opposite corner.
+    // rect() method draws a rectangle to the display window
+
+    this.focused = true; // Confirms that our Processing program is focused,
+    // meaning that it is active and will accept mouse or keyboard input.
+
+    // sets the text alignment to center
+    this.textAlign(PApplet.CENTER, PApplet.CENTER);
+
+    backgroundImage = super.loadImage("images" + File.separator + "background.png");
+    this.objects = new ArrayList<TaskListener>();
+    randGen = new Random();
+  }
+
+  // Continuously draws and updates the application display window
+  @Override
+  public void draw() {
+    super.image(backgroundImage, super.width / 2, super.height / 2);
+
+    for (int i = 0; i < objects.size(); i++) {
+      objects.get(i).draw();
     }
 
-    /**
-     * Continuously draws and updates the application display window
-     */
-    public static void draw() {
-        // clear the display window by drawing the background image
-        processing.image(backgroundImage, processing.width / 2, processing.height / 2);
+  }
 
-        // traverse the fishes array and draw each of the fish present in the tank
-        for (int i = 0; i < decorations.length; i++) {
-            if (decorations[i] == null)
-                continue;
-            decorations[i].draw();
-        }
-
-        for (int i = 0; i < fishes.length; i++) {
-            if (fishes[i] == null)
-                continue;
-
-            fishes[i].draw();
-        }
+  // Callback method called each time the user presses the mouse
+  @Override
+  public void mousePressed() {
+    for (int i = 0; i < objects.size(); i++) {
+      objects.get(i).mousePressed();
     }
+    // TODO traverse the objects list and call mousePressed method
+    // of the first object being clicked in the list
 
-    /**
-     * Callback method called each time the user presses the mouse
-     */
-    public static void mousePressed() {
-        // traverse the fishes array and start dragging a fish if the mouse is over it
-        for (int i = 0; i < fishes.length; i++) {
-            if (fishes[i] != null && fishes[i].isMouseOver()) {
-                fishes[i].startDragging();
-                return;
-            }
-        }
+  }
 
-        // traverse the decoratons array and start dragging a decoration if the mouse is
-        // over it
-        for (int i = 0; i < decorations.length; i++) {
-            if (decorations[i] != null && decorations[i].isMouseOver()) {
-                decorations[i].startDragging();
-                return;
-            }
-        }
+  // Callback method called each time the mouse is released
+  @Override
+  public void mouseReleased() {
+    for (int i = 0; i < objects.size(); i++) {
+      if(objects.get(i).isMouseOver()){
+        objects.get(i).mousePressed();
+        break;
+      }
     }
+  }
 
-    /**
-     * Callback method called each time the mouse is released
-     */
-    public static void mouseReleased() {
-        // traverse the fishes array and stop dragging any fish
-        for (int i = 0; i < fishes.length; i++) {
-            if (fishes[i] == null) continue;
-            fishes[i].stopDragging();
-        }
+  // adds an instance of TankListener passed as input to the objects arraylist
+  public void addObject(TaskListener object) {
+    objects.add(object);
+  }
 
-        for (int i = 0; i < decorations.length; i++) {
-            if(decorations[i] == null) continue;
-            decorations[i].stopDragging();
-        }
-    }
+  // Callback method called each time the user presses a key
+  @Override
+  public void keyPressed() {
 
-    /**
-     * Callback method called each time the user presses a key
-     */
-    public static void keyPressed() {
+    // To be implemented later in the next sections
 
-        // add fish on key press
-        if (processing.key == 'f' || processing.key == 'F') {
-            for (int i = 0; i < fishes.length; i++) {
-                if (fishes[i] != null)
-                    continue;
-
-                fishes[i] = new Fish(processing, (float) randGen.nextInt(processing.width),
-                        (float) randGen.nextInt(processing.height), FishTank.fishSpeed,
-                        "images" + File.separator + images[nextImageIndex]);
-                nextImageIndex = (nextImageIndex + 1) % images.length;
-                break;
-            }
-        } else if (processing.key == 'r' || processing.key == 'R') {
-            for (int i = 0; i < fishes.length; i++) {
-                if (fishes[i] == null || !fishes[i].isMouseOver())
-                    continue;
-
-                fishes[i] = null;
-                break;
-            }
-        } else if (processing.key == 's' || processing.key == 'S') {
-            for (int i = 0; i < fishes.length; i++) {
-                if (fishes[i] == null)
-                    continue;
-
-                fishes[i].startSwimming();
-            }
-        } else if (processing.key == 'x' || processing.key == 'X') {
-            for (int i = 0; i < fishes.length; i++) {
-                if (fishes[i] == null)
-                    continue;
-
-                fishes[i].stopSwimming();
-            }
-        }
-    }
-
-    /**
-     * This main method starts the application
-     * 
-     * @param args input arguments if any
-     */
-    public static void main(String[] args) {
-        // starts the application
-        Utility.startApplication();
-    }
+  }
 
 }
