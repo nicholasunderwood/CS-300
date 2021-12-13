@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch BinaryBookshelfTester",
+            "request": "launch",
+            "mainClass": "BinaryBookshelfTester",
+            "projectName": "P10_292be964"
+        },
+        {
+            "type": "java",
+            "name": "Launch TileMatchingTester",
+            "request": "launch",
+            "mainClass": "TileMatchingTester",
+            "projectName": "P09_27f5e438"
+        },
+        {
+            "type": "java",
+            "name": "Launch TileMatchingTester",
+            "request": "launch",
+            "mainClass": "TileMatchingTester",
+            "projectName": "P09_2d9c3bb7"
+        },
+        {
+            "type": "java",
+            "name": "Launch TileMatchingDriver",
+            "request": "launch",
+            "mainClass": "TileMatchingDriver",
+            "projectName": "P09_2d9c3bb7",
+            "console": "externalTerminal"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "console": "externalTerminal"
+        }
+    ]
+}
